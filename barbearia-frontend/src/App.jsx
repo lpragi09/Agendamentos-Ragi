@@ -1,35 +1,82 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState } from 'react';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import UserRegisterModal from './components/UserRegisterModal';
+import CompanyRegisterModal from './components/CompanyRegisterModal';
+import LoginModal from './components/LoginModal';
+import ForgotPasswordModal from './components/ForgotPasswordModal';
+import ServiceList from './components/ServiceList';
+import ProfessionalList from './components/ProfessionalList';
+import { lightTheme } from './theme';
+
+
+
+// ESTILOS GLOBAIS CORRIGIDOS E COMPLETOS
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body, #root {
+    height: 100%; // Garante que a base da página ocupe 100% da altura
+  }
+
+  body {
+    background-color: ${({ theme }) => theme.body}; 
+    color: ${({ theme }) => theme.text};
+    font-family: 'Montserrat', sans-serif;
+  }
+`;
+
+// CONTAINER DO APP CORRIGIDO E COMPLETO
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 function App() {
-  // Estado para armazenar a lista de serviços
-  const [servicos, setServicos] = useState([])
+  const [activeModal, setActiveModal] = useState(null);
 
-  // useEffect para buscar os dados da API quando o componente carregar
-  useEffect(() => {
-    fetch('http://localhost:3001/api/servicos')
-      .then(response => response.json())
-      .then(data => setServicos(data))
-      .catch(error => console.error('Erro ao buscar serviços:', error))
-  }, []) // O array vazio garante que a busca aconteça só uma vez
+  const openModal = (modalName) => setActiveModal(modalName);
+  const closeModal = () => setActiveModal(null);
 
   return (
-    <div className="App">
-      <h1>Serviços da Barbearia</h1>
-      {servicos.length > 0 ? (
-        <ul>
-          {/* Mapeia o array de serviços para criar um item de lista para cada um */}
-          {servicos.map(servico => (
-            <li key={servico._id}>
-              <strong>{servico.nome}</strong> - R$ {servico.preco.toFixed(2)} ({servico.duracao_minutos} min)
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Carregando serviços...</p>
-      )}
-    </div>
-  )
+    <ThemeProvider theme={lightTheme}>
+      <AppContainer>
+        {/* Componentes visíveis da página */}
+        <GlobalStyle />
+        <Navbar onOpenModal={openModal} />
+        <HeroSection />
+        <ServiceList />
+        <ProfessionalList />
+
+        {/* Modais (só aparecem quando chamados) */}
+        <UserRegisterModal 
+          isOpen={activeModal === 'userRegister'} 
+          onOpenModal={openModal}
+          onClose={closeModal} 
+        />
+        <CompanyRegisterModal 
+          isOpen={activeModal === 'companyRegister'} 
+          onClose={closeModal} 
+        />
+        <LoginModal 
+          isOpen={activeModal === 'login'} 
+          onClose={closeModal} 
+          onOpenModal={openModal}
+        />
+        <ForgotPasswordModal 
+          isOpen={activeModal === 'forgotPassword'}
+          onClose={closeModal}
+        />
+      </AppContainer>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
