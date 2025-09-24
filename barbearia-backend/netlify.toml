@@ -1,7 +1,7 @@
 [build]
   base = "barbearia-frontend"
   command = "npm run build"
-  publish = "barbearia-frontend/build"
+  publish = "barbearia-frontend/dist" # <-- Mude de 'build' para 'dist'
 
 [[redirects]]
   from = "/*"
