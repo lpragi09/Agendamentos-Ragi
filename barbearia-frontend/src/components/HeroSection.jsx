@@ -11,7 +11,7 @@ const SearchInput = styled.div`
   padding: 10px 15px;
   border-radius: 5px;
   color: ${({ theme }) => theme.accent};
-  
+
   input, .react-datepicker__input-container input {
     background: transparent;
     border: none;
@@ -25,7 +25,6 @@ const SearchInput = styled.div`
 `;
 
 const HeroContainer = styled.div`
-  background: ${({ theme }) => theme.body};
   color: ${({ theme }) => theme.text};
   display: flex;
   flex-direction: column;
@@ -33,15 +32,15 @@ const HeroContainer = styled.div`
   align-items: center;
   padding: 100px 30px;
   text-align: center;
-  min-height: 100vh; 
-  box-sizing: border-box; 
+  min-height: 100vh;
+  box-sizing: border-box;
 `;
 
 const HeroTitle = styled.h1`
   font-size: 3rem;
   margin-bottom: 1rem;
   max-width: 600px;
-  
+
   span {
     color: ${({ theme }) => theme.accent};
   }
@@ -80,8 +79,8 @@ const HeroSection = () => {
     e.preventDefault();
   };
 
-  const isToday = selectedDate 
-    ? new Date().toDateString() === selectedDate.toDateString() 
+  const isToday = selectedDate
+    ? new Date().toDateString() === selectedDate.toDateString()
     : false;
 
   // Função de filtro à prova de fuso horário
@@ -99,7 +98,7 @@ const HeroSection = () => {
           <FaMapMarkerAlt />
           <input type="text" placeholder="Local ou Barbearia" />
         </SearchInput>
-        
+
         <SearchInput>
           <FaCalendarAlt />
           <DatePicker
@@ -128,7 +127,7 @@ const HeroSection = () => {
             filterTime={isToday ? filterPassedTime : null}
           />
         </SearchInput>
-        
+
         <SearchButton>
           <FaSearch style={{ marginRight: '8px' }} />
           Pesquisar

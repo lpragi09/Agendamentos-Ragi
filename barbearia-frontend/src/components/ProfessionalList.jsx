@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 
 const ProfessionalListContainer = styled.section`
   padding: 4rem 50px;
-  background-color: ${({ theme }) => theme.body};
+
 
   /* Animação de revelação ao rolar */
   opacity: ${({ inView }) => (inView ? 1 : 0)};

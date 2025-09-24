@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'; // 1. Importando o "sup
 // 2. Modificando nosso container para reagir se está visível ou não
 const ServiceListContainer = styled.section`
   padding: 4rem 50px;
-  background-color: ${({ theme }) => theme.uiBackground};
+
 
   /* Estilos para a animação */
   opacity: ${({ inView }) => (inView ? 1 : 0)};
